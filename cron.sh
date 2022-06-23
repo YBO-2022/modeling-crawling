@@ -19,3 +19,10 @@ python3 ${crawling_path}/first_team.py
 # sudo apt install python3-pip
 # pip install bs4
 # pip install pandas
+
+
+# mysql -u root -p -h ybo-phase1.cgkn3au7spxb.ap-northeast-2.rds.amazonaws.com
+# pip install mysqlclient  
+# pip3 install python-dotenv
+
+# 실행: sh cron.sh
