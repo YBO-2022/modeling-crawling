@@ -11,7 +11,7 @@ import time
 import pymysql
 
 
-def game_():
+def game():
 # 환경 변수 설정
     load_dotenv()
     user = os.getenv('DB_USERNAME')
@@ -19,6 +19,9 @@ def game_():
     host = os.getenv('DB_HOST')
     port = 3306
     database = "ybo_db"
+
+    now = datetime.now()
+    table_name = f"realtime_game_{now.minute}"
 
 
     response = requests.get("https://sports.news.naver.com/kbaseball/schedule/index.nhn")
@@ -65,15 +68,16 @@ def game_():
         }
         score_list.append(score)
     df = pd.DataFrame(score_list)
-    df['realtime_game_id'] = df.index
+
+    df[f'{table_name}_id'] = df.index
 
     # DB 접속 엔진 객체 생성
     engine = create_engine(f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}', encoding='utf-8')
 
     # DB 테이블 명
-    table_name = "realtime_game"
+    
 
-    dtypesql = {'realtime_game_id': sqlalchemy.types.Integer,
+    dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer,
                 'game_state': sqlalchemy.types.VARCHAR(255),
                 'left_team': sqlalchemy.types.VARCHAR(255),
                 'right_team': sqlalchemy.types.VARCHAR(255),
@@ -95,7 +99,7 @@ def game_():
                 dtype=dtypesql)
 
     with engine.connect() as con:
-        con.execute('ALTER TABLE `realtime_game` ADD PRIMARY KEY (`realtime_game_id`);')
+        con.execute(f'ALTER TABLE `{table_name}` ADD PRIMARY KEY (`{table_name}_id`);')
 
 
 today = datetime.today().date()
@@ -103,4 +107,4 @@ n = time.localtime().tm_wday
 score_list = []
 
 if n != 0:
-    game_()
+    game()
