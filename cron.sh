@@ -1,11 +1,11 @@
 #!/bin/sh
 # ""으로 감싸면 안 됨! 
 cron_path=~/ybo_cron
-crawling_path=${cron_path}/crawling
+crawling_day_path=${cron_path}/crawling-day
 
 echo "Hello, World!"
 
-python3 ${crawling_path}/first_team.py
+python3 ${crawling_day_path}/first_team.py
 
 # 호출한 곳에서 상대 경로로 호출됨 
 
@@ -26,3 +26,10 @@ python3 ${crawling_path}/first_team.py
 # pip3 install python-dotenv
 
 # 실행: sh cron.sh
+
+
+
+# 크론 실행 중인지 확인 ps -ef | grep cron
+## root 권한으로 돌고 있어야 함 
+# 안 돌고 있으면 service cron start
+
