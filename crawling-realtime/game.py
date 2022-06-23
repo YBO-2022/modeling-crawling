@@ -13,15 +13,20 @@ import pymysql
 
 def game():
 # 환경 변수 설정
+    print("start crawling game")
     load_dotenv()
     user = os.getenv('DB_USERNAME')
     password = os.getenv('DB_PASSWORD')
     host = os.getenv('DB_HOST')
     port = 3306
     database = "ybo_db"
+    print("host:", host)
 
-    now = datetime.now()
-    table_name = f"realtime_game_{now.minute}"
+    table_name = "realtime_game"
+
+    code_path = os.getenv('CODE_PATH')
+    if code_path=="/app": 
+        table_name = f"realtime_game_docker"
 
 
     response = requests.get("https://sports.news.naver.com/kbaseball/schedule/index.nhn")

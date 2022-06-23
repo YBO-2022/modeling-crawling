@@ -19,7 +19,14 @@ def ranking():
     database = "ybo_db"
 
     now = datetime.now()
-    table_name = f"realtime_ranking_{now.minute}"
+    table_name = "realtime_ranking"
+
+    code_path = os.getenv('CODE_PATH')
+    print("code_path:", code_path)
+    
+    if code_path=="/app": 
+        print("table name set to docker")
+        table_name = f"realtime_ranking_docker"
 
     rank_list = []
     response = requests.get(f'https://sports.news.naver.com/kbaseball/record/index?category=kbo')
