@@ -7,10 +7,10 @@ import os
 
 load_dotenv()
 conn = MySQLdb.connect(
-    user=os.getenv('DB_USERNAME'),
-    passwd=os.getenv('DB_PASSWORD'),
-    host=os.getenv('DB_HOST'),
-    db="ybo_db"
+    user = os.getenv('DB_USERNAME'),
+    passwd = os.getenv('DB_PASSWORD'),
+    host = os.getenv('DB_HOST'),
+    db = "ybo_db"
     # charset="utf-8"
 )
 # type(conn): <class 'MySQLdb.connections.Connection'>
