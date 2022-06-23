@@ -26,6 +26,7 @@ RUN pip3 install python-dotenv
 # cron
 RUN apt-get install cron
 
+RUN mkdir log
 # Add the cron job
 RUN crontab -l | { cat; echo "* * * * * sh /app/cron/cron_realtime.sh > /app/log/realtime_`date +\%Y-\%m-\%d_\%H:\%M:\%S`.log 2>&1"; } | crontab -
 
