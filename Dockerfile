@@ -3,8 +3,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 MAINTAINER baeldung.com
 
 WORKDIR /app
-COPY . .
-RUN export CODE_PATH=/app
+
+RUN export ACTIVE=Docker
 
 # base tool
 RUN apt-get update
@@ -16,19 +16,23 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN ln -s /usr/bin/pip3 /usr/bin/pip
 
 RUN echo "y" | apt-get install python3-tk
-RUN pip3 install requests
-RUN pip3 install bs4
-RUN pip3 install pandas
-RUN pip3 install sqlalchemy
-RUN pip3 install pymysql
-RUN pip3 install python-dotenv
+RUN \ 
+    pip3 install requests &&\
+    pip3 install bs4 &&\
+    pip3 install pandas &&\
+    pip3 install sqlalchemy &&\
+    pip3 install pymysql &&\
+    pip3 install python-dotenv
 
 # cron
 RUN apt-get install cron
 
-RUN mkdir log
+COPY . .
+
 # Add the cron job
-RUN crontab -l | { cat; echo "* * * * * sh /app/cron/cron_realtime.sh > /app/log/realtime_`date +\%Y-\%m-\%d_\%H:\%M:\%S`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "ACTIVE=Docker"; } | crontab -
+RUN crontab -l | { cat; echo "TZ=Asia/Seoul"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * sh /app/cron_realtime.sh > /app/log-docker/realtime_\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
 
 RUN service cron start
 # Run the command on container startup
