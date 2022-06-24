@@ -22,10 +22,21 @@ RUN \
     pip3 install pandas &&\
     pip3 install sqlalchemy &&\
     pip3 install pymysql &&\
-    pip3 install python-dotenv
+    pip3 install python-dotenv &&\
+    pip3 install selenium &&\
+    pip3 install webdriver_manager
+
+# chrome driver
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt install ./google-chrome-stable_current_amd64.deb
+RUN wget https://chromedriver.storage.googleapis.com/93.0.4577.63/chromedriver_linux64.zip
+RUN unzip chromedriver_linux64.zip
 
 # cron
 RUN apt-get install cron
+
+
+
 
 COPY . .
 
@@ -38,18 +49,8 @@ RUN service cron start
 # Run the command on container startup
 CMD ["cron", "-f"]
 
+
+# 실행
 # docker-compose up -d 
 # docker exec -it cron /bin/bash 
-
-# 추가
-# pip install selenium
-# pip install webdriver_manager
-
-# 크롬 드라이버 설치 코드 추가 
-# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-# sudo apt install ./google-chrome-stable_current_amd64.deb
-# sudo wget https://chromedriver.storage.googleapis.com/93.0.4577.63/chromedriver_linux64.zip
-# unzip chromedriver_linux64.zip
-
-
 
