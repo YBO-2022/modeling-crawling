@@ -26,7 +26,7 @@ driver.get("https://www.google.com")
 #파일 생성
 current_dir = os.getcwd()
 
-f=open(f'{current_dir}/../data/타자sk.csv','w',encoding='cp949',newline='')
+f=open(f'{current_dir}/../data/batter_kt.csv','w',encoding='cp949',newline='')
 csvWriter = csv.writer(f)
 
 # 웹페이지 주소로 이동
