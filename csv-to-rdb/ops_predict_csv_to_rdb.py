@@ -4,6 +4,7 @@ import pymysql
 from sqlalchemy import create_engine
 import sqlalchemy
 import configparser
+from dotenv import load_dotenv
 import os
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
