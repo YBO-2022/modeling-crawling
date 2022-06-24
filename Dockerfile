@@ -40,3 +40,16 @@ CMD ["cron", "-f"]
 
 # docker-compose up -d 
 # docker exec -it cron /bin/bash 
+
+# 추가
+# pip install selenium
+# pip install webdriver_manager
+
+# 크롬 드라이버 설치 코드 추가 
+# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# sudo apt install ./google-chrome-stable_current_amd64.deb
+# sudo wget https://chromedriver.storage.googleapis.com/93.0.4577.63/chromedriver_linux64.zip
+# unzip chromedriver_linux64.zip
+
+
+

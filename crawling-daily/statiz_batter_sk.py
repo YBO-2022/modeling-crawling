@@ -7,6 +7,7 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import csv
+import os
 
 # 크롬 드라이버 자동 업데이트
 from webdriver_manager.chrome import ChromeDriverManager
@@ -15,11 +16,17 @@ from webdriver_manager.chrome import ChromeDriverManager
 options = Options()
 options.add_experimental_option("detach", True)
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
+driver.get("https://www.google.com")
 
 #파일 생성
-f=open(r'C:\Users\s137\OneDrive\바탕 화면\statiz_crawling\타자sk.csv','w',encoding='cp949',newline='')
+current_dir = os.getcwd()
+
+f=open(f'{current_dir}/../data/타자sk.csv','w',encoding='cp949',newline='')
 csvWriter = csv.writer(f)
 
 # 웹페이지 주소로 이동
@@ -60,7 +67,7 @@ time.sleep(3)
 
 #출력 클릭
 expand = driver.find_element(By.XPATH,"/html/body/div/div[1]/div/section[2]/div/div[2]/div[2]/div[2]/div[5]/form/select")
-expand.click()
+expand.send_keys(Keys.ENTER)
 time.sleep(3)
 
 #100개로 확장
