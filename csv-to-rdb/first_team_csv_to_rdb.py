@@ -7,11 +7,11 @@ import configparser
 from dotenv import load_dotenv
 import os
 
+table_name = "first_team"
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
-
-df = pd.read_csv(f"{current_dir}/../data/db/kbo-ranking-history.csv", thousands = ',', encoding='utf-8')
-df['ranking_history_id'] = df.index
+df = pd.read_csv(f"{current_dir}/../data/db/first_team.csv", thousands = ',', encoding='utf-8')
+df[f'{table_name}_id'] = df.index
 
 # params
 load_dotenv()
@@ -26,14 +26,21 @@ database = "ybo_db"
 engine = create_engine(f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}', encoding='utf-8')
 
 # DB 테이블 명
-table_name = "ranking_history"
 
-dtypesql = {'ranking_history_id': sqlalchemy.types.Integer, 
-        'year':sqlalchemy.types.Integer, 
+
+dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer, 
           'team':sqlalchemy.types.VARCHAR(255), 
-          'ranking':sqlalchemy.types.Integer
+          'c':sqlalchemy.types.VARCHAR(255), 
+          'cf':sqlalchemy.types.VARCHAR(255), 
+          'dh':sqlalchemy.types.VARCHAR(255), 
+          'fb':sqlalchemy.types.VARCHAR(255), 
+          'lf':sqlalchemy.types.VARCHAR(255), 
+          'p':sqlalchemy.types.VARCHAR(255), 
+          'rf':sqlalchemy.types.VARCHAR(255), 
+          'sb':sqlalchemy.types.VARCHAR(255), 
+          'ss':sqlalchemy.types.VARCHAR(255), 
+          'tb':sqlalchemy.types.VARCHAR(255), 
 }
-
 # DB에 DataFrame 적재
 df.to_sql(index = False,
           name = table_name,
@@ -44,4 +51,4 @@ df.to_sql(index = False,
           dtype=dtypesql)
 
 with engine.connect() as con:
-    con.execute('ALTER TABLE `ranking_history` ADD PRIMARY KEY (`ranking_history_id`);')
+    con.execute(f'ALTER TABLE `{table_name}` ADD PRIMARY KEY (`{table_name}_id`);')

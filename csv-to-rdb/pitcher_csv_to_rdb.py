@@ -7,12 +7,16 @@ import configparser
 from dotenv import load_dotenv
 import os
 
-# 행: 100,000, 열: 40, 파일 크기: 27.9MB
-df = pd.read_csv("./era2022.csv", encoding='utf-8', usecols=["name", "team", "WAR", "승", "패", "이닝", "실점", "자책", "피안타", "홈런", "볼넷", "삼진", "ERA", "WPA"])
-df.columns = ['name', 'team', 'war', 'win', 'lose', 'inning', 'runs', 'earned_run', 'hit', 'homerun', 'bb', 'strikeout', 'era', 'wpa']
+current_dir = os.path.dirname(os.path.realpath(__file__))
+
+df = pd.read_csv(f"{current_dir}/../data/input/preprocessed_era.csv", encoding='utf-8', usecols=["name", "WAR", "승", "패", "이닝", "실점", "자책", "피안타", "홈런", "볼넷", "삼진", "ERA", "year", "team"])
+df.columns = ['name', 'war', 'win', 'lose', 'inning', 'runs', 'earned_run', 'hit', 'homerun', 'bb', 'strikeout', 'era', 'year', 'team']
+df = df.loc[(df['year'] == 22)]
+df = df.drop(['year'], axis=1).reset_index(drop=True)
 df['pitcher_id'] = df.index
 
 # params
+load_dotenv()
 user = os.getenv('DB_USERNAME')
 password = os.getenv('DB_PASSWORD')
 host = os.getenv('DB_HOST')

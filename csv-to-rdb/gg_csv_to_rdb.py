@@ -7,11 +7,13 @@ import configparser
 from dotenv import load_dotenv
 import os
 
+
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
-df = pd.read_csv(f"{current_dir}/../data/output/predicted_era.csv", encoding='utf-8', usecols=['name', 'team', 'ERA', 'prediction_ERA'])
-df.columns = ['name', 'team' , 'era', 'predict_era']
-df['era_predict_id'] = df.index
+
+df = pd.read_csv(f"{current_dir}/../data/output/predicted_goldenglove.csv", encoding='utf-8', usecols=["position", "name", "team"])
+df.columns = ['position', 'name', 'team']
+df['squad_predict_id'] = df.index
 
 # params
 load_dotenv()
@@ -26,13 +28,12 @@ database = "ybo_db"
 engine = create_engine(f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}', encoding='utf-8')
 
 # DB 테이블 명
-table_name = "era_predict"
+table_name = "squad_predict"
 
-dtypesql = {'era_predict_id': sqlalchemy.types.Integer, 
+dtypesql = {'squad_predict_id': sqlalchemy.types.Integer,
+            'position': sqlalchemy.types.VARCHAR(255),
             'name': sqlalchemy.types.VARCHAR(255), 
-            'team': sqlalchemy.types.VARCHAR(255), 
-            'era': sqlalchemy.types.Float,
-            'predict_era': sqlalchemy.types.Float
+            'team': sqlalchemy.types.VARCHAR(255)
 }
 
 # DB에 DataFrame 적재
@@ -45,4 +46,4 @@ df.to_sql(index = False,
           dtype=dtypesql)
 
 with engine.connect() as con:
-    con.execute('ALTER TABLE `era_predict` ADD PRIMARY KEY (`era_predict_id`);')
+    con.execute('ALTER TABLE `squad_predict` ADD PRIMARY KEY (`squad_predict_id`);')

@@ -6,9 +6,9 @@ DATA_PATH=${CODE_PATH}/data
 
 # 크롤링 
 CRAWLING_DAILY_PATH=${CODE_PATH}/crawling-daily
-# python3 ${crawling_daily_path}/first_team.py
 python3 ${CRAWLING_DAILY_PATH}/pitcher.py
 python3 ${CRAWLING_DAILY_PATH}/hitter.py
+python3 ${CRAWLING_DAILY_PATH}/first_team.py
 
 
 # 데이터 전처리
@@ -28,6 +28,7 @@ rm ${OPS_PREDICTION_FILE}
 rm ${GOLDENGLOVE_PREDICTION_FILE}
 rm ${TEAMRANKING_PREDICTION_FILE}
 
+
 # 모델링 
 MODELING_PATH=${CODE_PATH}/modeling
 python3 ${MODELING_PATH}/era_modeling.py
@@ -41,16 +42,49 @@ if [ ! -f ${ERA_PREDICTION_FILE} ] && [ ! -f ${OPS_PREDICTION_FILE} ] && [ ! -f 
 fi
 
 
+########################################################
+###### DB에 저장 ######
+CSV_TO_RDB_PATH=${CODE_PATH}/csv-to-rdb
+
+# 모델링 결과 반영 
+## 투수 ERA 예측
+python3 ${CSV_TO_RDB_PATH}/era_predict_csv_to_rdb.py
+
+## 타자 OPS 예측
+python3 ${CSV_TO_RDB_PATH}/ops_predict_csv_to_rdb.py
+
+## 골글 예측
+python3 ${CSV_TO_RDB_PATH}/gg_csv_to_rdb.py
 
 
+# 크롤링 결과 반영
+## 투수
+python3 ${CSV_TO_RDB_PATH}/pitcher_csv_to_rdb.py
 
-# sh ~/ybo_cron/cron_daily.sh > ~/ybo_cron/log/job_`date +\%Y-\%m-\%d_\%H:\%M:\%S`.log 2>&1 
+## 타자
+python3 ${CSV_TO_RDB_PATH}/hitter_csv_to_rdb.py
+
+## WAR 
+python3 ${CSV_TO_RDB_PATH}/war_csv_to_rdb.py
+
+## 주전
+python3 ${CSV_TO_RDB_PATH}/first_team_csv_to_rdb.py
 
 
+# 기타
+## 시즌 최고 최저
+python3 ${CSV_TO_RDB_PATH}/season_high_low_csv_to_rdb.py
 
+# Static
+STATIC_PATH=${CODE_PATH}/static
+
+## 역대 랭킹
+python3 ${STATIC_PATH}/ranking_history_csv_to_rdb.py
+
+## 역대 우승 수
+python3 ${STATIC_PATH}/victory_num_csv_to_rdb.py
 
 
 # 크론 실행 중인지 확인 ps -ef | grep cron
 ## root 권한으로 돌고 있어야 함 
 # 안 돌고 있으면 sudo service cron start
-

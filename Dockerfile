@@ -17,17 +17,19 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip
 
 RUN echo "y" | apt-get install python3-tk
 RUN \ 
+    pip3 install --upgrade pip &&\
     pip3 install requests &&\
     pip3 install bs4 &&\
     pip3 install pandas &&\
     pip3 install sqlalchemy &&\
     pip3 install pymysql &&\
-    pip3 install python-dotenv &&
+    pip3 install python-dotenv &&\
+    pip3 install sklearn &&\
+    pip3 install xgboost 
+    
 
 # cron
 RUN apt-get install cron
-
-
 
 
 COPY . .
@@ -36,6 +38,7 @@ COPY . .
 RUN crontab -l | { cat; echo "ACTIVE=Docker"; } | crontab -
 RUN crontab -l | { cat; echo "TZ=Asia/Seoul"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * sh /app/cron_realtime.sh > /app/log-docker/realtime_\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "*/3 * * * * sh /app/cron_daily.sh > /app/log-docker/daily_\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
 
 RUN service cron start
 # Run the command on container startup

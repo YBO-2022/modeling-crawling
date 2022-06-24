@@ -7,15 +7,24 @@ import configparser
 from dotenv import load_dotenv
 import os
 
-# 행: 100,000, 열: 40, 파일 크기: 27.9MB
-df1 = pd.read_csv("./era2022.csv", encoding='utf-8', usecols=["name", "team", "WAR"])
-df1.columns = ['name', 'team', 'war']
-df2 = pd.read_csv("./ops2022.csv", encoding='utf-8', usecols=["name", "team", "WAR+"])
-df2.columns = ['name', 'team', 'war']
-df = pd.concat([df1,df2], ignore_index=True)
-df['war_id'] = df.index
+
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
+
+
+df1 = pd.read_csv(f"{current_dir}/../data/input/preprocessed_era.csv", encoding='utf-8', usecols=["name", "WAR", "year", "team"])
+df1.columns = ['name', 'war', 'year', 'team']
+df1 = df1.loc[(df1['year'] == 22)]
+df1 = df1.drop(['year'], axis=1).reset_index(drop=True)
+df2 = pd.read_csv(f"{current_dir}/../data/input/preprocessed_ops.csv", encoding='utf-8', usecols=["name", "WAR+", "year", "team"])
+df2.columns = ['name', 'war', 'year', 'team']
+df2 = df2.loc[(df2['year'] == 22)]
+df2 = df2.drop(['year'], axis=1).reset_index(drop=True)
+df = pd.concat([df1,df2], ignore_index=True).reset_index(drop=True)
+df['war_list_id'] = df.index
 
 # params
+load_dotenv()
 user = os.getenv('DB_USERNAME')
 password = os.getenv('DB_PASSWORD')
 host = os.getenv('DB_HOST')
@@ -27,9 +36,9 @@ database = "ybo_db"
 engine = create_engine(f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}', encoding='utf-8')
 
 # DB 테이블 명
-table_name = "war"
+table_name = "war_list"
 
-dtypesql = {'war_id': sqlalchemy.types.Integer, 
+dtypesql = {'war_list_id': sqlalchemy.types.Integer, 
             'name': sqlalchemy.types.VARCHAR(255), 
             'team': sqlalchemy.types.VARCHAR(255), 
             'war': sqlalchemy.types.Float
@@ -45,4 +54,4 @@ df.to_sql(index = False,
           dtype=dtypesql)
 
 with engine.connect() as con:
-    con.execute('ALTER TABLE `war` ADD PRIMARY KEY (`war_id`);')
+    con.execute('ALTER TABLE `war_list` ADD PRIMARY KEY (`war_list_id`);')

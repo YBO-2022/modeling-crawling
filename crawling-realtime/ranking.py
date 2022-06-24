@@ -23,11 +23,6 @@ def ranking():
     now = datetime.now()
     table_name = "realtime_ranking"
 
-    
-    if active=="Docker": 
-        print("table name set to docker")
-        table_name = f"realtime_ranking_docker"
-
     rank_list = []
     response = requests.get(f'https://sports.news.naver.com/kbaseball/record/index?category=kbo')
     html = response.text
