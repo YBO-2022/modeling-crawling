@@ -22,10 +22,13 @@ RUN \
     pip3 install pandas &&\
     pip3 install sqlalchemy &&\
     pip3 install pymysql &&\
-    pip3 install python-dotenv
+    pip3 install python-dotenv &&
 
 # cron
 RUN apt-get install cron
+
+
+
 
 COPY . .
 
@@ -38,5 +41,8 @@ RUN service cron start
 # Run the command on container startup
 CMD ["cron", "-f"]
 
+
+# 실행
 # docker-compose up -d 
 # docker exec -it cron /bin/bash 
+

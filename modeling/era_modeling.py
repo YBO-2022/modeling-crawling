@@ -11,6 +11,7 @@ from sklearn.ensemble import VotingRegressor, GradientBoostingRegressor
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+import os
 
 
 import warnings
@@ -79,10 +80,11 @@ class EraPredict:
 
         return result
 
-ERA = EraPredict('/Users/garam/Downloads/preprocessed_era.csv')
+current_dir = os.getcwd()
+ERA = EraPredict(f'{current_dir}/../data/input/preprocessed_era.csv')
 
 data = ERA.modeling()
 data
 
-data.to_csv('predict_era.csv')
+data.to_csv(f'{current_dir}/../data/output/predict_era.csv')
 

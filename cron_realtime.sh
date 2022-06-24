@@ -1,10 +1,8 @@
 
-# cd ../
 CODE_PATH=$(dirname $(realpath $0))
 
 crawling_realtime_path=${CODE_PATH}/crawling-realtime
 
-echo ${crawling_realtime_path}
 echo "Start Realtime Crawling"
 
 python3 ${crawling_realtime_path}/game.py

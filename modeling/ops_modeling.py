@@ -11,6 +11,7 @@ from sklearn.metrics import r2_score
 from sklearn.preprocessing import RobustScaler
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+import os
 
 import warnings
 warnings.filterwarnings(action='ignore')
@@ -89,8 +90,12 @@ class OpsPredict:
 
         return result
 
-Ops = OpsPredict('/Users/garam/Downloads/OPS_preprocessing_trade.csv')
+
+current_dir = os.getcwd() 
+Ops = OpsPredict(f'{current_dir}/../data/input/preprocessed_ops.csv')
 
 data = Ops.modeling()
-data.to_csv('predict_ops.csv')
+data.to_csv(f'{current_dir}/../data/output/predict_ops.csv')
 
+# pip install sklearn
+# pip install xgboost

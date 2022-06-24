@@ -11,7 +11,7 @@ def opsPreprocessing(data):
 
     data['year'] = 30
     data['team'] = 'a'
-    data['position'] = 'w'
+    data['position'] = 'sw'
 
     for i in range(0, len(data)) :
         str = data.season_team_position[i]
