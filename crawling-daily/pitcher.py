@@ -21,9 +21,8 @@ def remove_tag(content, team):
         return cleantext_5
     else :
         return cleantext_4
-th = ["ranking","name","season_team", "war","choolzhang","wanto","sonbal","win","loose","save","hold","inning","silzeom","zachaeck","taza","anta","2hit","3hit","homerun","ballfour","gofour","sagu", "samzin","vok","poktu","era","fip","whip","whip","wra+","fip+","war","wpa"]
+th = ["ranking","name","season_team", "war","choolzhang","wanto","wanbong", "sonbal","win","loose","save","hold","inning","silzeom","zachaeck","taza","anta","2hit","3hit","homerun","ballfour","gofour","sagu", "samzin","vok","poktu","era","fip","whip","era+","fip+","wpa"]
 result = list()
-
 
 for i in range(len(team_lst)):
     response = requests.get(f"http://www.statiz.co.kr/stat.php?opt=0&sopt=0&re=1&ys=2018&ye=2022&se=0&te={team_lst[i]}&tm=&ty=0&qu=75&po=0&as=&ae=&hi=&un=&pl=&da=1&o1=WAR&o2=OutCount&de=1&lr=0&tr=&cv=&ml=1&sn=100&si=&cn=")
@@ -32,7 +31,7 @@ for i in range(len(team_lst)):
     table= soup.find_all("table")[0]
     text = remove_tag(str(table), team_lst[i])
     ten_players = text.split('\n')
-
+    
     for st in ten_players:
         lst = st.split()
         list_len = len(lst)
@@ -52,8 +51,9 @@ for i in range(len(team_lst)):
                 s = s[1:]
             d[th[1]] =tmp
             d[th[2]]=s
-            for k in range(3, len(th)):
+            for k in range(3, len(th)-1):
                 d[th[k]]=lst[i*col+k-2]
+            d[th[len(th)-1]]=lst[i*col+30]
             result.append(d)
 
 
