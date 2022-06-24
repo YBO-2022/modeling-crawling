@@ -38,7 +38,7 @@ COPY . .
 RUN crontab -l | { cat; echo "ACTIVE=Docker"; } | crontab -
 RUN crontab -l | { cat; echo "TZ=Asia/Seoul"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * sh /app/cron_realtime.sh > /app/log-docker/realtime_\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
-RUN crontab -l | { cat; echo "* * * * * sh /app/cron_daily.sh > /app/log-docker/daily_\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "*/3 * * * * sh /app/cron_daily.sh > /app/log-docker/daily_\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
 
 RUN service cron start
 # Run the command on container startup
