@@ -1,0 +1,25 @@
+version: '3'
+services:
+  cron:
+    container_name: cron
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: wngusrud27/docker-cron
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    volumes: 
+      - ./:/app
+    environment:
+      - ACTIVE=Docker
+      - TZ=Asia/Seoul
+
+# build image and run container
+## docker-compose -f docker-compose-local.yml up -d --build 
+## docker exec -it cron /bin/bash 
+
+# build and push image
+## docker compose -f docker-compose-local.yml build 
+## docker image ls 
+## docker push wngusrud27/docker-cron 
