@@ -25,5 +25,5 @@ gg = pd.concat([gg_hit, gg_pit])
 
 gg = gg.loc[gg.groupby(['position'])['WAR'].idxmax()]
 gg = gg.set_index('position')
-gg.to_csv(f'{current_dir}/../data/output/goldenglove.csv')
+gg.to_csv(f'{current_dir}/../data/output/predicted_goldenglove.csv')
 
