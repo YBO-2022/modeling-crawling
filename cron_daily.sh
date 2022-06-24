@@ -50,7 +50,8 @@ python3 ${CSV_TO_RDB_PATH}/first_team_csv_to_rdb.py
 ## 투수
 python3 ${CSV_TO_RDB_PATH}/pitcher_csv_to_rdb.py
 
-
+## 투수 ERA 예측
+python3 ${CSV_TO_RDB_PATH}/era_predict_csv_to_rdb.py
 
 
 # 크론 실행 중인지 확인 ps -ef | grep cron
