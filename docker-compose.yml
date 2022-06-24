@@ -8,4 +8,8 @@ services:
     restart: on-failure
     stdin_open: true
     tty: true
-    
+    volumes: 
+      - ./:/app
+    environment:
+      - ACTIVE=Docker
+      - TZ=Asia/Seoul
