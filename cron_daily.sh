@@ -20,9 +20,11 @@ python3 ${PREPROCESSING_PATH}/ops_preprocessing.py
 # 이전 모델링 데이터 삭제
 ERA_PREDICTION_FILE=${DATA_PATH}/output/predicted_era.csv
 OPS_PREDICTION_FILE=${DATA_PATH}/output/predicted_ops.csv
+GOLDENGLOVE_PREDICTION_FILE=${DATA_PATH}/output/goldenglove.csv
 
 rm ${ERA_PREDICTION_FILE}
 rm ${OPS_PREDICTION_FILE}
+rm ${GOLDENGLOVE_PREDICTION_FILE}
 
 # 모델링 
 MODELING_PATH=${CODE_PATH}/modeling
@@ -30,8 +32,8 @@ python3 ${MODELING_PATH}/era_modeling.py
 python3 ${MODELING_PATH}/ops_modeling.py
 
 
-if [ ! -f ${ERA_PREDICTION_FILE} ] && [ ! -f ${OPS_PREDICTION_FILE} ] ; then
-    echo "모델링 결과가 존재하지 않습니다!"
+if [ ! -f ${ERA_PREDICTION_FILE} ] && [ ! -f ${OPS_PREDICTION_FILE} ] && [ ! -f ${GOLDENGLOVE_PREDICTION_FILE} ]; then
+    echo "모든 모델링 결과가 존재하지 않습니다!"
 fi
 
 
