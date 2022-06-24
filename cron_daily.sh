@@ -1,27 +1,36 @@
 #!/bin/sh
-# ""으로 감싸면 안 됨! 
+echo "Start Daily Crontab"
+
 CODE_PATH=$(dirname $(realpath $0))
+DATA_PATH=${CODE_PATH}/data
+
+# 크롤링 
 crawling_daily_path=${CODE_PATH}/crawling-daily
+# python3 ${crawling_daily_path}/first_team.py
+python3 ${crawling_daily_path}/pitcher.py
+python3 ${crawling_daily_path}/hitter.py
 
-echo "Hello, World!"
 
-python3 ${crawling_daily_path}/first_team.py
+# 데이터 전처리
+preprocessing_path=${CODE_PATH}/preprocessing
+python3 ${preprocessing_path}/era_preprocessing.py
+python3 ${preprocessing_path}/ops_preprocessing.py
 
-# 호출한 곳에서 상대 경로로 호출됨 
+
+# 모델링 
+modeling_path=${CODE_PATH}/modeling
+python3 ${modeling_path}/era_modeling.py
+python3 ${modeling_path}/ops_modeling.py
+
+
+
+
+
 
 
 # sh ~/ybo_cron/cron_daily.sh > ~/ybo_cron/log/job_`date +\%Y-\%m-\%d_\%H:\%M:\%S`.log 2>&1 
 
-# sudo apt install python3-pip
-# pip install bs4
-# pip install pandas
 
-
-# mysql -u root -p -h ybo-phase1.cgkn3au7spxb.ap-northeast-2.rds.amazonaws.com
-# pip install mysqlclient  
-# pip3 install python-dotenv
-
-# 실행: sh cron.sh
 
 
 
