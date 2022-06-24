@@ -21,7 +21,7 @@ def remove_tag(content, team):
         return cleantext_5
     else :
         return cleantext_4
-th = ["ranking","name","season_team_position", "war","choolzhang","wanto","sonbal","win","loose","save","hold","inning","silzeom","zachaeck","taza","anta","2hit","3hit","homerun","ballfour","gofour","sagu", "samzin","vok","poktu","era","fip","whip","whip","wra+","fip+","war","wpa"]
+th = ["ranking","name","season_team", "war","choolzhang","wanto","sonbal","win","loose","save","hold","inning","silzeom","zachaeck","taza","anta","2hit","3hit","homerun","ballfour","gofour","sagu", "samzin","vok","poktu","era","fip","whip","whip","wra+","fip+","war","wpa"]
 result = list()
 
 
