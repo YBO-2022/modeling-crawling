@@ -4,16 +4,19 @@ import pymysql
 from sqlalchemy import create_engine
 import sqlalchemy
 import configparser
+import os
 from dotenv import load_dotenv
 import os
 
-# 행: 100,000, 열: 40, 파일 크기: 27.9MB
-# WAR+ 를 WAR 대신 써도 되는건지?
-df = pd.read_csv("./ops2022.csv", encoding='utf-8', usecols=["name", "team", "position", "WAR+", "game수", "타석", "안타", "홈런", "타점", "도루", "삼진", "병살", "타율", "출루", "장타", "OPS"])
-df.columns = ['name', 'team', 'position', 'war', 'games', 'pa', 'hit', 'homerun', 'rbi', 'steal', 'strikeout', 'dp', 'ba', 'obp', 'slg', 'ops']
+current_dir = os.path.dirname(os.path.realpath(__file__))
+df = pd.read_csv(f"{current_dir}/../data/input/preprocessed_ops.csv", encoding='utf-8', usecols=["name", "WAR+", "game수", "타석", "안타", "홈런", "타점", "도루", "삼진", "병살", "타율", "출루", "장타", "OPS", "year", "team", "position"])
+df.columns = ['name', 'war', 'games', 'pa', 'hit', 'homerun', 'rbi', 'steal', 'strikeout', 'dp', 'ba', 'obp', 'slg', 'ops', 'year', 'team', 'position']
+df = df.loc[(df['year'] == 22)]
+df = df.drop(['year'], axis=1).reset_index(drop=True)
 df['hitter_id'] = df.index
 
 # params
+load_dotenv()
 user = os.getenv('DB_USERNAME')
 password = os.getenv('DB_PASSWORD')
 host = os.getenv('DB_HOST')
