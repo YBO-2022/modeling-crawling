@@ -57,7 +57,6 @@ for i in range(len(team_lst)):
             result.append(d)
 
 
-
-current_dir = os.getcwd()
+current_dir = os.path.dirname(os.path.realpath(__file__))
 df = pd.DataFrame.from_dict(result, orient='columns')
 df.to_csv(f"{current_dir}/../data/input/pitcher.csv", encoding="utf-8")

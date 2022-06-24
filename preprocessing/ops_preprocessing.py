@@ -2,7 +2,7 @@
 
 import pandas as pd
 import os
-current_dir = os.getcwd()
+current_dir = os.path.dirname(os.path.realpath(__file__))
 temp = pd.read_csv(f'{current_dir}/../data/input/hitter.csv', encoding="UTF-8")
 
 def opsPreprocessing(data):

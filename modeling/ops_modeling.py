@@ -91,7 +91,7 @@ class OpsPredict:
         return result
 
 
-current_dir = os.getcwd() 
+current_dir = os.path.dirname(os.path.realpath(__file__))
 Ops = OpsPredict(f'{current_dir}/../data/input/preprocessed_ops.csv')
 
 data = Ops.modeling()
