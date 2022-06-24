@@ -95,7 +95,7 @@ current_dir = os.getcwd()
 Ops = OpsPredict(f'{current_dir}/../data/input/preprocessed_ops.csv')
 
 data = Ops.modeling()
-data.to_csv(f'{current_dir}/../data/output/predict_ops.csv')
+data.to_csv(f'{current_dir}/../data/output/predicted_ops.csv')
 
 # pip install sklearn
 # pip install xgboost
