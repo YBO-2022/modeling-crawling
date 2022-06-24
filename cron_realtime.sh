@@ -1,5 +1,4 @@
 
-# cd ../
 CODE_PATH=$(dirname $(realpath $0))
 
 crawling_realtime_path=${CODE_PATH}/crawling-realtime
