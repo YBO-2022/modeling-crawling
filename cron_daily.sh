@@ -8,6 +8,7 @@ DATA_PATH=${CODE_PATH}/data
 CRAWLING_DAILY_PATH=${CODE_PATH}/crawling-daily
 python3 ${CRAWLING_DAILY_PATH}/pitcher.py
 python3 ${CRAWLING_DAILY_PATH}/hitter.py
+python3 ${CRAWLING_DAILY_PATH}/first_team.py
 
 
 # 데이터 전처리
@@ -66,7 +67,6 @@ python3 ${CSV_TO_RDB_PATH}/hitter_csv_to_rdb.py
 python3 ${CSV_TO_RDB_PATH}/war_csv_to_rdb.py
 
 ## 주전
-python3 ${CRAWLING_DAILY_PATH}/first_team.py
 python3 ${CSV_TO_RDB_PATH}/first_team_csv_to_rdb.py
 
 
