@@ -30,8 +30,8 @@ python3 ${MODELING_PATH}/era_modeling.py
 python3 ${MODELING_PATH}/ops_modeling.py
 
 
-if [-f ${ERA_PREDICTION_FILE}] && [-f ${OPS_PREDICTION_FILE}]; then
-    echo "없음!!"
+if [ ! -f ${ERA_PREDICTION_FILE} ] && [ ! -f ${OPS_PREDICTION_FILE} ] ; then
+    echo "모델링 결과가 존재하지 않습니다!"
 fi
 
 
