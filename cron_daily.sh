@@ -50,6 +50,9 @@ python3 ${CSV_TO_RDB_PATH}/ops_predict_csv_to_rdb.py
 ## 골글 예측
 python3 ${CSV_TO_RDB_PATH}/gg_csv_to_rdb.py
 
+## 팀 순위 예측
+python3 ${CSV_TO_RDB_PATH}/rank_predict_csv_to_rdb.py
+
 
 # 크롤링 결과 반영
 ## 투수
