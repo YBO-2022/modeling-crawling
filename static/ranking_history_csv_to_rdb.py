@@ -7,8 +7,10 @@ import configparser
 from dotenv import load_dotenv
 import os
 
-# 행: 100,000, 열: 40, 파일 크기: 27.9MB
-df = pd.read_csv("../data/KBO-ranking-history.csv", thousands = ',', encoding='utf-8')
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
+
+df = pd.read_csv(f"{current_dir}/../data/db/kbo-ranking-history.csv", thousands = ',', encoding='utf-8')
 df['ranking_history_id'] = df.index
 
 # params

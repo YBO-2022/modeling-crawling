@@ -73,6 +73,13 @@ python3 ${CSV_TO_RDB_PATH}/war_csv_to_rdb
 
 
 
+STATIC_PATH=${CODE_PATH}/static
+## WAR 데이터 
+python3 ${STATIC_PATH}/ranking_history_csv_to_rdb
+
+
+
+
 # 크론 실행 중인지 확인 ps -ef | grep cron
 ## root 권한으로 돌고 있어야 함 
 # 안 돌고 있으면 sudo service cron start
