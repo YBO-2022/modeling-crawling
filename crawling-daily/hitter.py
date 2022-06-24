@@ -21,7 +21,7 @@ def remove_tag(content, team):
     else :
         return cleantext_4
 
-th = ["ranking","name","season_team_position", "war","score","hit","2hit","3hit","homerun","ruta","tazeom","doru","dosil","ballfour","sagu","gofour","samzin","beongsal","heeta","teebi","tayul","choolru", "zhangta","ops","woba","wrc+","wpa"]
+th = ["ranking","name","season_team_position", "war", "game", "tasuk", "tasu", "score","hit","2hit","3hit","homerun","ruta","tazeom","doru","dosil","ballfour","sagu","gofour","samzin","beongsal","heeta","teebi","tayul","choolru", "zhangta","ops","woba","wrc+","wpa"]
 result = list()
 
 for i in range(len(team_lst)):
@@ -51,10 +51,11 @@ for i in range(len(team_lst)):
                 s = s[1:]
             d[th[1]] =tmp
             d[th[2]]=s
-            for k in range(3, len(th)):
+            for k in range(3, len(th)-1):
                 d[th[k]]=lst[i*col+k-2]
+            d[th[len(th)-1]]=lst[i*col+28]
             result.append(d)
 
-current_dir = os.getcwd()
+current_dir = os.path.dirname(os.path.realpath(__file__))
 df = pd.DataFrame.from_dict(result, orient='columns')
 df.to_csv(f"{current_dir}/../data/input/hitter.csv", encoding="utf-8")

@@ -80,11 +80,11 @@ class EraPredict:
 
         return result
 
-current_dir = os.getcwd()
+current_dir = os.path.dirname(os.path.realpath(__file__))
 ERA = EraPredict(f'{current_dir}/../data/input/preprocessed_era.csv')
 
 data = ERA.modeling()
 data
 
-data.to_csv(f'{current_dir}/../data/output/predict_era.csv')
+data.to_csv(f'{current_dir}/../data/output/predicted_era.csv')
 

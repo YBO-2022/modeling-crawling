@@ -1,27 +1,46 @@
 #!/bin/sh
-# ""으로 감싸면 안 됨! 
+echo "Start Daily Crontab"
+
 CODE_PATH=$(dirname $(realpath $0))
-crawling_daily_path=${CODE_PATH}/crawling-daily
+DATA_PATH=${CODE_PATH}/data
 
-echo "Hello, World!"
+# 크롤링 
+CRAWLING_DAILY_PATH=${CODE_PATH}/crawling-daily
+# python3 ${crawling_daily_path}/first_team.py
+python3 ${CRAWLING_DAILY_PATH}/pitcher.py
+python3 ${CRAWLING_DAILY_PATH}/hitter.py
 
-python3 ${crawling_daily_path}/first_team.py
 
-# 호출한 곳에서 상대 경로로 호출됨 
+# 데이터 전처리
+PREPROCESSING_PATH=${CODE_PATH}/preprocessing
+python3 ${PREPROCESSING_PATH}/era_preprocessing.py
+python3 ${PREPROCESSING_PATH}/ops_preprocessing.py
+
+
+# 이전 모델링 데이터 삭제
+ERA_PREDICTION_FILE=${DATA_PATH}/output/predicted_era.csv
+OPS_PREDICTION_FILE=${DATA_PATH}/output/predicted_ops.csv
+
+rm ${ERA_PREDICTION_FILE}
+rm ${OPS_PREDICTION_FILE}
+
+# 모델링 
+MODELING_PATH=${CODE_PATH}/modeling
+python3 ${MODELING_PATH}/era_modeling.py
+python3 ${MODELING_PATH}/ops_modeling.py
+
+
+if [ ! -f ${ERA_PREDICTION_FILE} ] && [ ! -f ${OPS_PREDICTION_FILE} ] ; then
+    echo "모델링 결과가 존재하지 않습니다!"
+fi
+
+
+
 
 
 # sh ~/ybo_cron/cron_daily.sh > ~/ybo_cron/log/job_`date +\%Y-\%m-\%d_\%H:\%M:\%S`.log 2>&1 
 
-# sudo apt install python3-pip
-# pip install bs4
-# pip install pandas
 
-
-# mysql -u root -p -h ybo-phase1.cgkn3au7spxb.ap-northeast-2.rds.amazonaws.com
-# pip install mysqlclient  
-# pip3 install python-dotenv
-
-# 실행: sh cron.sh
 
 
 

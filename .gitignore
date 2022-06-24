@@ -1,5 +1,5 @@
 log/*
 docker/*
-data/*
 .env
 log-docker/*.log
+test.sh
