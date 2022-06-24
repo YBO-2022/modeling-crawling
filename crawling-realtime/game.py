@@ -24,8 +24,6 @@ def game():
     table_name = "realtime_game"
 
     active = os.getenv('ACTIVE')
-    if active=="Docker": 
-        table_name = f"realtime_game_docker"
 
     response = requests.get("https://sports.news.naver.com/kbaseball/schedule/index.nhn")
     html = response.text
