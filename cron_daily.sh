@@ -6,7 +6,6 @@ DATA_PATH=${CODE_PATH}/data
 
 # 크롤링 
 CRAWLING_DAILY_PATH=${CODE_PATH}/crawling-daily
-# python3 ${crawling_daily_path}/first_team.py
 python3 ${CRAWLING_DAILY_PATH}/pitcher.py
 python3 ${CRAWLING_DAILY_PATH}/hitter.py
 
@@ -41,11 +40,15 @@ if [ ! -f ${ERA_PREDICTION_FILE} ] && [ ! -f ${OPS_PREDICTION_FILE} ] && [ ! -f 
 fi
 
 
+# DB에 저장
+CSV_TO_RDB_PATH=${CODE_PATH}/csv-to-rdb
 
+## 주전
+python3 ${CRAWLING_DAILY_PATH}/first_team.py
+python3 ${CSV_TO_RDB_PATH}/first_team_csv_to_rdb.py
 
-
-# sh ~/ybo_cron/cron_daily.sh > ~/ybo_cron/log/job_`date +\%Y-\%m-\%d_\%H:\%M:\%S`.log 2>&1 
-
+## 투수
+python3 ${CSV_TO_RDB_PATH}/pitcher_csv_to_rdb.py
 
 
 
