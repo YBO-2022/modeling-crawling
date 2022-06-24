@@ -31,8 +31,8 @@ for i in range(len(team_lst)):
     table= soup.find_all("table")[0]
     text = remove_tag(str(table), team_lst[i])
     ten_players = text.split('\n')
-    for st in ten_players:
 
+    for st in ten_players:
         lst = st.split()
         list_len = len(lst)
         col = 29
