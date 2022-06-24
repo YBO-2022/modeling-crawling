@@ -20,7 +20,6 @@ def game():
     host = os.getenv('DB_HOST')
     port = 3306
     database = "ybo_db"
-    print("host:", host)
 
     table_name = "realtime_game"
 

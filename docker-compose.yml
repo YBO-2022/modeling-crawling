@@ -2,9 +2,7 @@ version: '3'
 services:
   cron:
     container_name: cron
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: wngusrud27/docker-cron
     restart: on-failure
     stdin_open: true
     tty: true
@@ -13,3 +11,6 @@ services:
     environment:
       - ACTIVE=Docker
       - TZ=Asia/Seoul
+
+## docker-compose up -d
+## docker exec -it cron /bin/bash 
