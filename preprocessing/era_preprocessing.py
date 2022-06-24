@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
-
+import warnings
+warnings.filterwarnings(action='ignore')
 
 import os
 current_dir = os.path.dirname(os.path.realpath(__file__))
