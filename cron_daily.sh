@@ -5,24 +5,34 @@ CODE_PATH=$(dirname $(realpath $0))
 DATA_PATH=${CODE_PATH}/data
 
 # 크롤링 
-crawling_daily_path=${CODE_PATH}/crawling-daily
+CRAWLING_DAILY_PATH=${CODE_PATH}/crawling-daily
 # python3 ${crawling_daily_path}/first_team.py
-python3 ${crawling_daily_path}/pitcher.py
-python3 ${crawling_daily_path}/hitter.py
+python3 ${CRAWLING_DAILY_PATH}/pitcher.py
+python3 ${CRAWLING_DAILY_PATH}/hitter.py
 
 
 # 데이터 전처리
-preprocessing_path=${CODE_PATH}/preprocessing
-python3 ${preprocessing_path}/era_preprocessing.py
-python3 ${preprocessing_path}/ops_preprocessing.py
+PREPROCESSING_PATH=${CODE_PATH}/preprocessing
+python3 ${PREPROCESSING_PATH}/era_preprocessing.py
+python3 ${PREPROCESSING_PATH}/ops_preprocessing.py
 
+
+# 이전 모델링 데이터 삭제
+ERA_PREDICTION_FILE=${DATA_PATH}/output/predicted_era.csv
+OPS_PREDICTION_FILE=${DATA_PATH}/output/predicted_ops.csv
+
+rm ${ERA_PREDICTION_FILE}
+rm ${OPS_PREDICTION_FILE}
 
 # 모델링 
-modeling_path=${CODE_PATH}/modeling
-python3 ${modeling_path}/era_modeling.py
-python3 ${modeling_path}/ops_modeling.py
+MODELING_PATH=${CODE_PATH}/modeling
+python3 ${MODELING_PATH}/era_modeling.py
+python3 ${MODELING_PATH}/ops_modeling.py
 
 
+if [-f ${ERA_PREDICTION_FILE}] && [-f ${OPS_PREDICTION_FILE}]; then
+    echo "없음!!"
+fi
 
 
 
