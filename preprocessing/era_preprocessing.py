@@ -2,15 +2,23 @@
 
 
 import pandas as pd
+import os
 
 """## KT 없는데이터 가지고 전처리"""
+current_dir = os.getcwd()
+no_sk_kt = pd.read_csv(f'{current_dir}/../data-example/투수(kt,sk제외).csv', encoding='cp949')
+yes_sk = pd.read_csv(f'{current_dir}/../data-example/투수sk.csv', encoding='cp949')
+yes_kt = pd.read_csv(f'{current_dir}/../data-example/투수kt.csv', encoding='cp949')
 
-no_sk_kt = pd.read_csv('/content/drive/Shareddrives/[2022-1 Ybigta] 타율 어쩌구 구단이 울랄라/스탯티즈 크롤링/투수(kt,sk제외).csv', encoding='cp949')
-yes_sk = pd.read_csv('/content/drive/Shareddrives/[2022-1 Ybigta] 타율 어쩌구 구단이 울랄라/스탯티즈 크롤링/투수sk.csv', encoding='cp949')
-yes_kt = pd.read_csv('/content/drive/Shareddrives/[2022-1 Ybigta] 타율 어쩌구 구단이 울랄라/스탯티즈 크롤링/투수kt.csv', encoding='cp949')
+
+# no_sk_kt = pd.read_csv(f'{current_dir}/../data/pitcher_except_sk_kt.csv', encoding='cp949')
+# yes_sk = pd.read_csv(f'{current_dir}/../data/pitcher_sk.csv', encoding='cp949')
+# yes_kt = pd.read_csv(f'{current_dir}/../data/pitcher_kt.csv', encoding='cp949')
+
 
 data = pd.concat([no_sk_kt, yes_sk])
 data.rename(columns = {'순 이름 팀 정렬\n출장\n완투\n완봉\n선발\n승\n패\n세\n홀드\n이닝\n실점\n자책\n타자\n안타\n2타\n3타\n홈런\n볼넷\n고4\n사구\n삼진\n보크\n폭투\n비율\nWAR\nWPA':'pre'},inplace=True)
+print(data.info())
 
 def preprocessing(data):
     col = ['순서','name', 'year', 'team', 'WAR', '출장', '완투', '완봉', '선발', '승', '패', '세이브', '홀드', '이닝', '실점', '자책', '타자', '피안타', '이루타', '삼루타', '홈런', '볼넷', '고의사구','사구', '삼진', '보크', '폭투', 'ERA', 'FIP', 'WHIP', 'ERA+', 'FIP+', 'WPA']
@@ -62,7 +70,7 @@ dataset = dataset.drop(['index'], axis=1)
 dataset = pd.concat([data, yes_kt])
 dataset = dataset.reset_index()
 dataset = dataset.drop(['index'], axis=1)
-dataset.to_csv('era.csv')
+dataset.to_csv(f'{current_dir}/../data/preprocessed_ops.csv')
 
 '''#현재 OPS 페이지에 올릴 새로운 데이터프레임
 data2022 : 선수별 페이지 22년 OPS 랭킹

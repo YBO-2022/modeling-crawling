@@ -1,5 +1,4 @@
 log/*
-data/*
 docker/*
 .env
 log-docker/*.log
