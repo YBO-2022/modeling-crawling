@@ -4,15 +4,15 @@ import pymysql
 from sqlalchemy import create_engine
 import sqlalchemy
 import configparser
-from dotenv import load_dotenv
 import os
 
-# 행: 100,000, 열: 40, 파일 크기: 27.9MB
-df = pd.read_csv("./predict_ops.csv", encoding='utf-8', usecols=['name', 'team', 'OPS', 'prediction_OPS'])
+current_dir = os.path.dirname(os.path.realpath(__file__))
+df = pd.read_csv(f"{current_dir}/../data/output/predicted_ops.csv", encoding='utf-8', usecols=['name', 'team', 'OPS', 'prediction_OPS'])
 df.columns = ['name', 'team' , 'ops', 'predict_ops']
 df['ops_predict_id'] = df.index
 
 # params
+load_dotenv()
 user = os.getenv('DB_USERNAME')
 password = os.getenv('DB_PASSWORD')
 host = os.getenv('DB_HOST')
