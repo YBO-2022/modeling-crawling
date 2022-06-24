@@ -63,22 +63,22 @@ python3 ${CSV_TO_RDB_PATH}/ops_predict_csv_to_rdb.py
 python3 ${CSV_TO_RDB_PATH}/season_high_low_csv_to_rdb.py
 
 ## 골글 예측
-python3 ${CSV_TO_RDB_PATH}/gg_csv_to_rdb
+python3 ${CSV_TO_RDB_PATH}/gg_csv_to_rdb.py
 
 
 
 ## WAR 데이터 
-python3 ${CSV_TO_RDB_PATH}/war_csv_to_rdb
+python3 ${CSV_TO_RDB_PATH}/war_csv_to_rdb.py
 
 
 
 STATIC_PATH=${CODE_PATH}/static
 
 ## 역대 랭킹
-python3 ${STATIC_PATH}/ranking_history_csv_to_rdb
+python3 ${STATIC_PATH}/ranking_history_csv_to_rdb.py
 
 ## 역대 우승 수
-python3 ${STATIC_PATH}/victory_num_csv_to_rdb
+python3 ${STATIC_PATH}/victory_num_csv_to_rdb.py
 
 
 # 크론 실행 중인지 확인 ps -ef | grep cron
