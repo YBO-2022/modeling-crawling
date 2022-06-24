@@ -1,8 +1,5 @@
 log/*
-data/*
 docker/*
+data/*
 .env
 log-docker/*.log
-chromedriver_linux64.zip
-chromedriver
-google-chrome-stable_current_amd64.deb
