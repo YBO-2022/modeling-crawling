@@ -10,6 +10,10 @@ import pymysql
 from datetime import datetime
 
 def ranking():
+    active = os.getenv('ACTIVE')
+    print("active:", active)
+    print(os.environ)
+
     # 환경 변수 설정
     load_dotenv()
     user = os.getenv('DB_USERNAME')
@@ -21,10 +25,8 @@ def ranking():
     now = datetime.now()
     table_name = "realtime_ranking"
 
-    code_path = os.getenv('CODE_PATH')
-    print("code_path:", code_path)
     
-    if code_path=="/app": 
+    if active=="Docker": 
         print("table name set to docker")
         table_name = f"realtime_ranking_docker"
 
