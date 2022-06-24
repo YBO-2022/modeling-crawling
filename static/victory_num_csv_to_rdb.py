@@ -7,7 +7,6 @@ import configparser
 from dotenv import load_dotenv
 import os
 
-# 행: 100,000, 열: 40, 파일 크기: 27.9MB
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
 df = pd.read_csv(f"{current_dir}/../data/db/victory_num.csv", encoding='utf-8', usecols=["team", "우승횟수"])
