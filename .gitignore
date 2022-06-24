@@ -3,3 +3,4 @@ data/*
 docker/*
 .env
 log-docker/*.log
+.DS_Store
