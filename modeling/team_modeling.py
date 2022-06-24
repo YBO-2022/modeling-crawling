@@ -8,22 +8,21 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_squared_error
 from math import sqrt
-import matplotlib.pyplot as plt
-import seaborn as sns
-from matplotlib import font_manager, rc
 
 from sklearn.ensemble import VotingRegressor
 from xgboost import XGBRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import cross_validate
 from sklearn.model_selection import KFold
-
+import os
 import warnings
 warnings.filterwarnings(action='ignore')
 
-kbo_data = pd.read_csv('/content/drive/Shareddrives/[2022-1 Ybigta] 타율 어쩌구 구단이 울랄라/스탯티즈 크롤링/kbo팀별크롤링.csv',encoding='cp949')
-statiz_batter = pd.read_csv('/content/drive/Shareddrives/[2022-1 Ybigta] 타율 어쩌구 구단이 울랄라/스탯티즈 크롤링/스탯티즈팀별크롤링_타자.csv',encoding='cp949')
-statiz_pitcher = pd.read_csv('/content/drive/Shareddrives/[2022-1 Ybigta] 타율 어쩌구 구단이 울랄라/스탯티즈 크롤링/스탯티즈팀별크롤링_투수.csv',encoding='cp949')
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
+kbo_data = pd.read_csv(f'{current_dir}/../data/input/team.csv',encoding='utf-8')
+statiz_batter = pd.read_csv(f'{current_dir}/../data/input/team_hitter.csv',encoding='utf-8')
+statiz_pitcher = pd.read_csv(f'{current_dir}/../data/input/team_pitcher.csv',encoding='utf-8')
 
 
 statiz_pitcher.rename(columns = {'순 이름 팀 정렬\n출장\n완투\n완봉\n선발\n승\n패\n세\n홀드\n이닝\n실점\n자책\n타자\n안타\n2타\n3타\n홈런\n볼넷\n고4\n사구\n삼진\n보크\n폭투\n비율\nWAR\nWPA':'pre'},inplace=True)
@@ -211,5 +210,5 @@ class RankPredict:
 Rank = RankPredict(dataset)
 
 data = Rank.modeling()
-data.to_csv('team_ranking.csv')
+data.to_csv(f'{current_dir}/../data/output/predicted_team_ranking.csv')
 
