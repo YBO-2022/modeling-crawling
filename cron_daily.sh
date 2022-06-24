@@ -40,38 +40,41 @@ if [ ! -f ${ERA_PREDICTION_FILE} ] && [ ! -f ${OPS_PREDICTION_FILE} ] && [ ! -f 
 fi
 
 
-# DB에 저장
+########################################################
+###### DB에 저장 ######
 CSV_TO_RDB_PATH=${CODE_PATH}/csv-to-rdb
 
-## 주전
-python3 ${CRAWLING_DAILY_PATH}/first_team.py
-python3 ${CSV_TO_RDB_PATH}/first_team_csv_to_rdb.py
-
-## 투수
-python3 ${CSV_TO_RDB_PATH}/pitcher_csv_to_rdb.py
-
+# 모델링 결과 반영 
 ## 투수 ERA 예측
 python3 ${CSV_TO_RDB_PATH}/era_predict_csv_to_rdb.py
 
-## 타자
-python3 ${CSV_TO_RDB_PATH}/hitter_csv_to_rdb.py
-
 ## 타자 OPS 예측
 python3 ${CSV_TO_RDB_PATH}/ops_predict_csv_to_rdb.py
-
-## 시즌 최고 최저
-python3 ${CSV_TO_RDB_PATH}/season_high_low_csv_to_rdb.py
 
 ## 골글 예측
 python3 ${CSV_TO_RDB_PATH}/gg_csv_to_rdb.py
 
 
+# 크롤링 결과 반영
+## 투수
+python3 ${CSV_TO_RDB_PATH}/pitcher_csv_to_rdb.py
 
-## WAR 데이터 
+## 타자
+python3 ${CSV_TO_RDB_PATH}/hitter_csv_to_rdb.py
+
+## WAR 
 python3 ${CSV_TO_RDB_PATH}/war_csv_to_rdb.py
 
+## 주전
+python3 ${CRAWLING_DAILY_PATH}/first_team.py
+python3 ${CSV_TO_RDB_PATH}/first_team_csv_to_rdb.py
 
 
+# 기타
+## 시즌 최고 최저
+python3 ${CSV_TO_RDB_PATH}/season_high_low_csv_to_rdb.py
+
+# Static
 STATIC_PATH=${CODE_PATH}/static
 
 ## 역대 랭킹
@@ -84,4 +87,3 @@ python3 ${STATIC_PATH}/victory_num_csv_to_rdb.py
 # 크론 실행 중인지 확인 ps -ef | grep cron
 ## root 권한으로 돌고 있어야 함 
 # 안 돌고 있으면 sudo service cron start
-
