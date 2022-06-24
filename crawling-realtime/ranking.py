@@ -11,8 +11,6 @@ from datetime import datetime
 
 def ranking():
     active = os.getenv('ACTIVE')
-    print("active:", active)
-    print(os.environ)
 
     # 환경 변수 설정
     load_dotenv()
