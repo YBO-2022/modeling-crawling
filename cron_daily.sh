@@ -68,6 +68,8 @@ python3 ${CSV_TO_RDB_PATH}/gg_csv_to_rdb
 ## 역대 우승 수
 python3 ${CSV_TO_RDB_PATH}/victory_num_csv_to_rdb
 
+## WAR 데이터 
+python3 ${CSV_TO_RDB_PATH}/war_csv_to_rdb
 
 
 
