@@ -59,6 +59,10 @@ python3 ${CSV_TO_RDB_PATH}/hitter_csv_to_rdb.py
 ## 타자 OPS 예측
 python3 ${CSV_TO_RDB_PATH}/ops_predict_csv_to_rdb.py
 
+## 시즌 최고 최저
+python3 ${CSV_TO_RDB_PATH}/season_high_low_csv_to_rdb.py
+
+
 
 # 크론 실행 중인지 확인 ps -ef | grep cron
 ## root 권한으로 돌고 있어야 함 
