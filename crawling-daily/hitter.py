@@ -2,9 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
+import os
 
 team_lst = ["KIA","kt","LG","NC","SSG","SK", "두산","롯데","삼성","키움","한화"]
-
 
 def remove_tag(content, team):
     cleanr =re.compile('<.*?>')
