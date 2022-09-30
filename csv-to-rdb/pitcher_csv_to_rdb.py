@@ -11,8 +11,6 @@ df.columns = ['name', 'war', 'win', 'lose', 'save', 'hold', 'inning', 'runs', 'e
 df = df.loc[(df['year'] == 22)]
 df = df.drop(['year'], axis=1).reset_index(drop=True)
 
-
-# DB 테이블 명
 table_name = "pitcher"
 df[f'{table_name}_id'] = df.index
 

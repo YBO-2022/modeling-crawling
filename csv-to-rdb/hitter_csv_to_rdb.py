@@ -5,13 +5,12 @@ import os
 from csv_to_rdb_util import store_dataframe_to_db
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
+
 df = pd.read_csv(f"{current_dir}/../data/input/preprocessed_ops.csv", encoding='utf-8', usecols=["name", "WAR+", "game수", "타석", "안타", "홈런", "타점", "도루", "삼진", "병살", "타율", "출루", "장타", "OPS", "year", "team", "position"])
 df.columns = ['name', 'war', 'games', 'pa', 'hit', 'homerun', 'rbi', 'steal', 'strikeout', 'dp', 'ba', 'obp', 'slg', 'ops', 'year', 'team', 'position']
 df = df.loc[(df['year'] == 22)]
 df = df.drop(['year'], axis=1).reset_index(drop=True)
 
-
-# DB 테이블 명
 table_name = "hitter"
 df[f'{table_name}_id'] = df.index
 

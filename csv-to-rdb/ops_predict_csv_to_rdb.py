@@ -5,11 +5,10 @@ import os
 from csv_to_rdb_util import store_dataframe_to_db
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
+
 df = pd.read_csv(f"{current_dir}/../data/output/predicted_ops.csv", encoding='utf-8', usecols=['name', 'team', 'OPS', 'prediction_OPS'])
 df.columns = ['name', 'team' , 'ops', 'predict_ops']
 
-
-# DB 테이블 명
 table_name = "ops_predict"
 df[f'{table_name}_id'] = df.index
 
