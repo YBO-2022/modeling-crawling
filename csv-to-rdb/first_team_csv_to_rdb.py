@@ -50,5 +50,5 @@ df.to_sql(index = False,
           chunksize = 10000,
           dtype=dtypesql)
 
-with engine.connect() as con:
-    con.execute(f'ALTER TABLE `{table_name}` ADD PRIMARY KEY (`{table_name}_id`);')
+#with engine.connect() as con:
+#    con.execute(f'ALTER TABLE `{table_name}` ADD PRIMARY KEY (`{table_name}_id`);')
