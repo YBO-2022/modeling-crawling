@@ -43,5 +43,3 @@ df.to_sql(index = False,
           chunksize = 10000,
           dtype=dtypesql)
 
-#with engine.connect() as con:
-#    con.execute('ALTER TABLE `ops_predict` ADD PRIMARY KEY (`ops_predict_id`);')
