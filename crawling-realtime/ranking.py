@@ -1,33 +1,19 @@
-
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from sqlalchemy import create_engine
 import sqlalchemy
-from dotenv import load_dotenv
 import os
-import pymysql
-from datetime import datetime
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))+"/csv-to-rdb")
+from df_to_rdb_util import store_dataframe_to_db 
 
 def ranking():
-    active = os.getenv('ACTIVE')
 
-    # 환경 변수 설정
-    load_dotenv()
-    user = os.getenv('DB_USERNAME')
-    password = os.getenv('DB_PASSWORD')
-    host = os.getenv('DB_HOST')
-    port = 3306
-    database = "ybo_db"
-
-    now = datetime.now()
-    table_name = "realtime_ranking"
-
-    rank_list = []
     response = requests.get(f'https://sports.news.naver.com/kbaseball/record/index?category=kbo')
     html = response.text
     soup = BeautifulSoup(html, 'html.parser')
 
+    rank_list = []
     for i in range(10):
         k = i + 1
         ranking = soup.select("#regularTeamRecordList_table > tr >th > strong")[i].get_text()
@@ -53,13 +39,8 @@ def ranking():
         rank_list.append(rank_dict)
     df = pd.DataFrame(rank_list)
 
+    table_name = "realtime_ranking"
     df[f'{table_name}_id'] = df.index
-
-    # DB 접속 엔진 객체 생성
-    engine = create_engine(f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}', encoding='utf-8')
-
-    # DB 테이블 명
-
 
     dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer,
                 'ranking': sqlalchemy.types.Integer,
@@ -74,12 +55,5 @@ def ranking():
                 }
 
     # DB에 DataFrame 적재
-    df.to_sql(index=False,
-                name=table_name,
-                con=engine,
-                if_exists='replace',
-                method='multi',
-                chunksize=10000,
-                dtype=dtypesql)
-
+    store_dataframe_to_db(df, table_name, dtypesql)
 ranking()

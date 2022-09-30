@@ -1,40 +1,24 @@
-
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from sqlalchemy import create_engine
 import sqlalchemy
-from dotenv import load_dotenv
 import os
-from datetime import datetime
 import time
-import pymysql
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))+"/csv-to-rdb")
+from df_to_rdb_util import store_dataframe_to_db 
 
 
 def game():
-# 환경 변수 설정
-    print("start crawling game")
-    load_dotenv()
-    user = os.getenv('DB_USERNAME')
-    password = os.getenv('DB_PASSWORD')
-    host = os.getenv('DB_HOST')
-    port = 3306
-    database = "ybo_db"
-
-    table_name = "realtime_game"
-
-    active = os.getenv('ACTIVE')
 
     response = requests.get("https://sports.news.naver.com/kbaseball/schedule/index.nhn")
     html = response.text
     soup = BeautifulSoup(html, 'html.parser')
 
-    today = datetime.today().date()
-    n = time.localtime().tm_wday
     score_list = []
-
-    message = str(today) + "의 경기 진행 상황입니다"
     for i in range(1, 6):
+        if not soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > p > strong'):
+            continue
         left_team = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > p > strong').get_text()
         right_team = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_rgt > p > strong').get_text()
         left_pitcher = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > p > span > a').get_text()
@@ -67,16 +51,12 @@ def game():
             "left_pitcher": left_pitcher,
             "right_pitcher": right_pitcher
         }
+        
         score_list.append(score)
     df = pd.DataFrame(score_list)
 
+    table_name = "realtime_game"
     df[f'{table_name}_id'] = df.index
-
-    # DB 접속 엔진 객체 생성
-    engine = create_engine(f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}', encoding='utf-8')
-
-    # DB 테이블 명
-    
 
     dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer,
                 'game_state': sqlalchemy.types.VARCHAR(255),
@@ -91,17 +71,8 @@ def game():
                 }
 
     # DB에 DataFrame 적재
-    df.to_sql(index=False,
-                name=table_name,
-                con=engine,
-                if_exists='replace',
-                method='multi',
-                chunksize=10000,
-                dtype=dtypesql)
+    store_dataframe_to_db(df, table_name, dtypesql)
 
-today = datetime.today().date()
 n = time.localtime().tm_wday
-score_list = []
-
-if n != 0:
+if n != 1:
     game()
