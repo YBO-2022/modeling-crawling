@@ -8,12 +8,12 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 
 df = pd.read_csv(f"{current_dir}/../data/output/predicted_era.csv", encoding='utf-8', usecols=['name', 'team', 'ERA', 'prediction_ERA'])
 df.columns = ['name', 'team' , 'era', 'predict_era']
-df['era_predict_id'] = df.index
 
 # DB 테이블 명
 table_name = "era_predict"
+df[f'{table_name}_id'] = df.index
 
-dtypesql = {'era_predict_id': sqlalchemy.types.Integer, 
+dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer, 
             'name': sqlalchemy.types.VARCHAR(255), 
             'team': sqlalchemy.types.VARCHAR(255), 
             'era': sqlalchemy.types.Float,

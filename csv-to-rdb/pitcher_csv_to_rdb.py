@@ -10,13 +10,13 @@ df = pd.read_csv(f"{current_dir}/../data/input/preprocessed_era.csv", usecols=["
 df.columns = ['name', 'war', 'win', 'lose', 'save', 'hold', 'inning', 'runs', 'earned_run', 'hit', 'homerun', 'bb', 'strikeout', 'era', 'year', 'team']
 df = df.loc[(df['year'] == 22)]
 df = df.drop(['year'], axis=1).reset_index(drop=True)
-df['pitcher_id'] = df.index
 
 
 # DB 테이블 명
 table_name = "pitcher"
+df[f'{table_name}_id'] = df.index
 
-dtypesql = {'pitcher_id': sqlalchemy.types.Integer, 
+dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer, 
             'name': sqlalchemy.types.VARCHAR(255), 
             'team': sqlalchemy.types.VARCHAR(255), 
             'war': sqlalchemy.types.Float,

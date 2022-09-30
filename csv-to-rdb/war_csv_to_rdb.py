@@ -4,6 +4,8 @@ import sqlalchemy
 import os
 from csv_to_rdb_util import store_dataframe_to_db
 
+
+
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
 df1 = pd.read_csv(f"{current_dir}/../data/input/preprocessed_era.csv", encoding='utf-8', usecols=["name", "WAR", "year", "team"])
@@ -15,12 +17,13 @@ df2.columns = ['name', 'war', 'year', 'team']
 df2 = df2.loc[(df2['year'] == 22)]
 df2 = df2.drop(['year'], axis=1).reset_index(drop=True)
 df = pd.concat([df1,df2], ignore_index=True).reset_index(drop=True)
-df['war_list_id'] = df.index
 
 # DB 테이블 명
 table_name = "war_list"
+df[f'{table_name}_id'] = df.index
 
-dtypesql = {'war_list_id': sqlalchemy.types.Integer, 
+
+dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer, 
             'name': sqlalchemy.types.VARCHAR(255), 
             'team': sqlalchemy.types.VARCHAR(255), 
             'war': sqlalchemy.types.Float

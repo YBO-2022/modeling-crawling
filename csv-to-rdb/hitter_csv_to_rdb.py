@@ -9,13 +9,13 @@ df = pd.read_csv(f"{current_dir}/../data/input/preprocessed_ops.csv", encoding='
 df.columns = ['name', 'war', 'games', 'pa', 'hit', 'homerun', 'rbi', 'steal', 'strikeout', 'dp', 'ba', 'obp', 'slg', 'ops', 'year', 'team', 'position']
 df = df.loc[(df['year'] == 22)]
 df = df.drop(['year'], axis=1).reset_index(drop=True)
-df['hitter_id'] = df.index
 
 
 # DB 테이블 명
 table_name = "hitter"
+df[f'{table_name}_id'] = df.index
 
-dtypesql = {'hitter_id': sqlalchemy.types.Integer, 
+dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer, 
             'name': sqlalchemy.types.VARCHAR(255), 
             'team': sqlalchemy.types.VARCHAR(255),
             'position': sqlalchemy.types.VARCHAR(20), 

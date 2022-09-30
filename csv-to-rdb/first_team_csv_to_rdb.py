@@ -4,14 +4,17 @@ import sqlalchemy
 import os
 from csv_to_rdb_util import store_dataframe_to_db
 
-table_name = "first_team"
+
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 df = pd.read_csv(f"{current_dir}/../data/db/first_team.csv", thousands = ',', encoding='utf-8')
-df[f'{table_name}_id'] = df.index
 
 
 # DB 테이블 명
+table_name = "first_team"
+df[f'{table_name}_id'] = df.index
+
+
 dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer, 
           'team':sqlalchemy.types.VARCHAR(255), 
           'c':sqlalchemy.types.VARCHAR(255), 
