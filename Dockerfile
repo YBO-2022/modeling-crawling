@@ -18,14 +18,14 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip
 RUN echo "y" | apt-get install python3-tk
 RUN \ 
     pip3 install --upgrade pip &&\
-    pip3 install requests &&\
-    pip3 install bs4 &&\
-    pip3 install pandas &&\
-    pip3 install sqlalchemy &&\
-    pip3 install pymysql &&\
-    pip3 install python-dotenv &&\
-    pip3 install sklearn &&\
-    pip3 install xgboost 
+    pip3 install requests --no-cache-dir &&\
+    pip3 install bs4 --no-cache-dir &&\
+    pip3 install pandas --no-cache-dir &&\
+    pip3 install sqlalchemy --no-cache-dir &&\
+    pip3 install pymysql --no-cache-dir &&\
+    pip3 install python-dotenv --no-cache-dir &&\
+    pip3 install sklearn --no-cache-dir &&\
+    pip3 install xgboost --no-cache-dir 
     
 
 # cron
