@@ -2,7 +2,7 @@ import time
 import pandas as pd
 import sqlalchemy
 import os
-from csv_to_rdb_util import store_dataframe_to_db
+from df_to_rdb_util import store_dataframe_to_db 
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
