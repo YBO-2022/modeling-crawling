@@ -35,6 +35,8 @@ def game():
 
     message = str(today) + "의 경기 진행 상황입니다"
     for i in range(1, 6):
+        if not soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > p > strong'):
+            continue
         left_team = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > p > strong').get_text()
         right_team = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_rgt > p > strong').get_text()
         left_pitcher = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > p > span > a').get_text()
@@ -67,6 +69,7 @@ def game():
             "left_pitcher": left_pitcher,
             "right_pitcher": right_pitcher
         }
+        
         score_list.append(score)
     df = pd.DataFrame(score_list)
 
