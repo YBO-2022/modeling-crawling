@@ -3,3 +3,4 @@ docker/*
 .env
 log-docker/*.log
 test.sh
+__pycache__
