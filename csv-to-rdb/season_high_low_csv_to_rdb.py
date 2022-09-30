@@ -45,5 +45,5 @@ df.to_sql(index = False,
           chunksize = 10000,
           dtype=dtypesql)
 
-with engine.connect() as con:
-    con.execute('ALTER TABLE `season_high_low` ADD PRIMARY KEY (`season_high_low_id`);')
+#with engine.connect() as con:
+#    con.execute('ALTER TABLE `season_high_low` ADD PRIMARY KEY (`season_high_low_id`);')
