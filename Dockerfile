@@ -32,8 +32,8 @@ COPY . .
 
 # Add the cron job
 RUN crontab -l | { cat; echo "TZ=Asia/Seoul"; } | crontab -
-RUN crontab -l | { cat; echo "* * * * * sh /app/cron_realtime.sh > /app/log-docker/realtime/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
-RUN crontab -l | { cat; echo "0 3 * * * sh /app/cron_daily.sh > /app/log-docker/daily/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * sh /usr/src/cron_realtime.sh > /usr/src/log-docker/realtime/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "0 3 * * * sh /usr/src/cron_daily.sh > /usr/src/log-docker/daily/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
 
 RUN service cron start
 CMD ["cron", "-f"]
