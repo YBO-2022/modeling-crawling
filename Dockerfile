@@ -30,6 +30,8 @@ RUN apt-get install cron
 
 COPY . .
 
+RUN sh static.sh
+
 # Add the cron job
 RUN crontab -l | { cat; echo "TZ=Asia/Seoul"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * sh /usr/src/cron_realtime.sh > /usr/src/log-docker/realtime/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
@@ -42,4 +44,3 @@ CMD ["cron", "-f"]
 # 빌드하고 실행
 # docker-compose -f docker-compose-local.yml up -d --build 
 # docker exec -it ybo_cron /bin/bash 
-
