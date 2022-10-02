@@ -55,7 +55,7 @@ python3 ${CSV_TO_RDB_PATH}/ops_predict_csv_to_rdb.py
 ## 골글 예측
 python3 ${CSV_TO_RDB_PATH}/gg_csv_to_rdb.py
 ## 팀 순위 예측
-python3 ${CSV_TO_RDB_PATH}/rank_predict_csv_to_rdb.py
+python3 ${CSV_TO_RDB_PATH}/ranking_predict_csv_to_rdb.py
 
 
 # 크롤링 결과 반영
@@ -100,7 +100,7 @@ rm ${DATA_PATH}/output/predicted_ops.csv
 rm ${DATA_PATH}/output/predicted_goldenglove.csv
 rm ${DATA_PATH}/output/predicted_team_ranking.csv
 
-
+echo "Finish Daily crawling"
 
 # 크론 실행 중인지 확인 ps -ef | grep cron
 ## root 권한으로 돌고 있어야 함 

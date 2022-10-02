@@ -9,7 +9,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 df = pd.read_csv(f"{current_dir}/../data/output/predicted_team_ranking.csv", encoding='utf-8', usecols=["team", "승률", "prediction_Rank"])
 df.columns = ['team', 'win_rate', 'predict_win_rate']
 
-table_name = "rank_predict"
+table_name = "ranking_predict"
 df[f'{table_name}_id'] = df.index
 
 dtypesql = {f'{table_name}_id': sqlalchemy.types.Integer,

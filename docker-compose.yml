@@ -1,16 +1,15 @@
 version: '3'
 services:
   cron:
-    container_name: cron
+    container_name: ybo_cron
     image: wngusrud27/docker-cron
     restart: on-failure
     stdin_open: true
     tty: true
     volumes: 
-      - ./:/app
+      - ./:/usr/src
     environment:
-      - ACTIVE=Docker
       - TZ=Asia/Seoul
 
 ## docker-compose up -d
-## docker exec -it cron /bin/bash 
+## docker exec -it ybo_cron /bin/bash 
