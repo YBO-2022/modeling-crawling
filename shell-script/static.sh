@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Start Static Job"
 
-CODE_PATH=$(dirname $(realpath $0))
+CODE_PATH=$(dirname $(realpath $0))/..
 STATIC_PATH=${CODE_PATH}/static
 
 ## 역대 랭킹

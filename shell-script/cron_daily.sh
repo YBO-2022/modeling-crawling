@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Start Daily Crontab"
 
-CODE_PATH=$(dirname $(realpath $0))
+CODE_PATH=$(dirname $(realpath $0))/..
 DATA_PATH=${CODE_PATH}/data
 
 
