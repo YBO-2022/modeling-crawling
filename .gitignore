@@ -1,7 +1,7 @@
 log/*
 docker/*
 .env
-log-docker/*.log
+log-docker
 test.sh
 __pycache__
 memo.txt
