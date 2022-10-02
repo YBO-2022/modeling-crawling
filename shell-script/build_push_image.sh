@@ -2,7 +2,7 @@
 
 set -e 
 
-docker build -t wngusrud27/docker-cron ./
+docker build -t wngusrud27/docker-cron ../
 
 export $(cat .env | xargs)
 
