@@ -43,7 +43,3 @@ CMD ["cron", "-f"]
 # docker-compose -f docker-compose-local.yml up -d --build 
 # docker exec -it ybo_cron /bin/bash 
 
-# build and push image
-## docker build -t wnguarud27/docker-cron
-## docker image ls 
-## docker push wngusrud27/docker-cron 
