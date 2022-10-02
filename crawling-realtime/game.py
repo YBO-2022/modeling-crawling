@@ -24,20 +24,21 @@ def game():
         left_pitcher = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > p > span > a').get_text()
         right_pitcher = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_rgt > p > span > a').get_text()
         state = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_cnt > em').get_text().strip()
+        game_state = ""
         if state == "취소":
             game_state = "경기 취소"
-            left_score = " "
-            right_score = " "
+            left_score = ""
+            right_score = ""
         elif ":" in state:
             game_state = " 시작 전"
-            left_score = " "
-            right_score = " "
+            left_score = ""
+            right_score = ""
         elif state == "종료":
             game_state = "경기 종료"
             left_score = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > strong').get_text()
             right_score = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_rgt > strong').get_text()
         else:
-            game_state = " 경기 중"
+            game_state = state
             left_score = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_lft > strong').get_text()
             right_score = soup.select_one(f'#todaySchedule > li:nth-child({i}) > div.vs_rgt > strong').get_text()
 
@@ -62,9 +63,8 @@ def game():
                 'game_state': sqlalchemy.types.VARCHAR(255),
                 'left_team': sqlalchemy.types.VARCHAR(255),
                 'right_team': sqlalchemy.types.VARCHAR(255),
-                'left_score': sqlalchemy.types.VARCHAR(255),
-                'right_score': sqlalchemy.types.VARCHAR(255),
-                'draw_number': sqlalchemy.types.VARCHAR(255),
+                'left_score': sqlalchemy.types.Integer,
+                'right_score': sqlalchemy.types.Integer,
                 'state': sqlalchemy.types.VARCHAR(255),
                 'left_pitcher': sqlalchemy.types.VARCHAR(255),
                 'right_pitcher': sqlalchemy.types.VARCHAR(255)
