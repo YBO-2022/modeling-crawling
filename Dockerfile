@@ -30,16 +30,20 @@ RUN apt-get install cron
 
 COPY . .
 
+RUN sh ./shell-script/static.sh
+
 # Add the cron job
 RUN crontab -l | { cat; echo "TZ=Asia/Seoul"; } | crontab -
-RUN crontab -l | { cat; echo "* * * * * sh /usr/src/cron_realtime.sh > /usr/src/log-docker/realtime/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
-RUN crontab -l | { cat; echo "0 3 * * * sh /usr/src/cron_daily.sh > /usr/src/log-docker/daily/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * sh /usr/src/shell-script/cron_realtime.sh > /usr/src/log-docker/realtime/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "0 3 * * * sh /usr/src/shell-script/cron_daily.sh > /usr/src/log-docker/daily/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
 
 RUN service cron start
 CMD ["cron", "-f"]
 
+# 크론 실행 중인지 확인 ps -ef | grep cron
+## root 권한으로 돌고 있어야 함 
+# 안 돌고 있으면 sudo service cron start
 
 # 빌드하고 실행
 # docker-compose -f docker-compose-local.yml up -d --build 
 # docker exec -it ybo_cron /bin/bash 
-

@@ -3,6 +3,4 @@ docker/*
 .env
 data
 log-docker
-test.sh
 __pycache__
-memo.txt

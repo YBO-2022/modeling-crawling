@@ -2,9 +2,9 @@
 
 set -e 
 
-docker build -t wngusrud27/docker-cron ./
+docker build -t wngusrud27/docker-cron ../
 
-export $(cat .env | xargs)
+export $(cat $(dirname $(realpath $0))/../.env | xargs)
 
 echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_ID} --password-stdin
 
