@@ -40,6 +40,9 @@ RUN crontab -l | { cat; echo "0 3 * * * sh /usr/src/shell-script/cron_daily.sh >
 RUN service cron start
 CMD ["cron", "-f"]
 
+# 크론 실행 중인지 확인 ps -ef | grep cron
+## root 권한으로 돌고 있어야 함 
+# 안 돌고 있으면 sudo service cron start
 
 # 빌드하고 실행
 # docker-compose -f docker-compose-local.yml up -d --build 
