@@ -100,7 +100,7 @@ rm ${DATA_PATH}/output/predicted_ops.csv
 rm ${DATA_PATH}/output/predicted_goldenglove.csv
 rm ${DATA_PATH}/output/predicted_team_ranking.csv
 
-
+echo "Finish Daily crawling"
 
 # 크론 실행 중인지 확인 ps -ef | grep cron
 ## root 권한으로 돌고 있어야 함 
