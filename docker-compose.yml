@@ -7,7 +7,7 @@ services:
     stdin_open: true
     tty: true
     volumes: 
-      - ./:/app
+      - ./:/usr/src
     environment:
       - TZ=Asia/Seoul
 

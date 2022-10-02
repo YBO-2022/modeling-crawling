@@ -7,11 +7,10 @@ services:
     stdin_open: true
     tty: true
     volumes: 
-      - ./:/app
+      - ./:/usr/src
     environment:
       - TZ=Asia/Seoul
 
 # build image and run container
 ## docker-compose -f docker-compose-local.yml up -d --build 
 ## docker exec -it ybo_cron /bin/bash 
-
