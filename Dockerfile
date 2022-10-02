@@ -30,12 +30,12 @@ RUN apt-get install cron
 
 COPY . .
 
-RUN sh static.sh
+RUN sh ./shell-script/static.sh
 
 # Add the cron job
 RUN crontab -l | { cat; echo "TZ=Asia/Seoul"; } | crontab -
-RUN crontab -l | { cat; echo "* * * * * sh /usr/src/cron_realtime.sh > /usr/src/log-docker/realtime/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
-RUN crontab -l | { cat; echo "0 3 * * * sh /usr/src/cron_daily.sh > /usr/src/log-docker/daily/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * sh /usr/src/shell-script/cron_realtime.sh > /usr/src/log-docker/realtime/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
+RUN crontab -l | { cat; echo "0 3 * * * sh /usr/src/shell-script/cron_daily.sh > /usr/src/log-docker/daily/\`date +\%Y-\%m-\%d_\%H:\%M:\%S\`.log 2>&1"; } | crontab -
 
 RUN service cron start
 CMD ["cron", "-f"]
